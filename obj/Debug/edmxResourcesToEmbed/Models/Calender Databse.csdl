@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AcademicCalendarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="EventId" />
+    </Key>
+    <Property Name="EventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TutorId" Type="Guid" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="StartTime" Type="DateTimeOffset" Nullable="false" Precision="7" />
+    <Property Name="EndTime" Type="DateTimeOffset" Nullable="false" Precision="7" />
+    <Property Name="CreatedAt" Type="DateTimeOffset" Precision="7" />
+    <Property Name="UpdatedAt" Type="DateTimeOffset" Precision="7" />
+    <NavigationProperty Name="Tutor" Relationship="Self.FK__Events__TutorId__628FA481" FromRole="Events" ToRole="Tutors" />
+  </EntityType>
+  <EntityType Name="Tutor">
+    <Key>
+      <PropertyRef Name="TutorId" />
+    </Key>
+    <Property Name="TutorId" Type="Guid" Nullable="false" />
+    <Property Name="DisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Events" Relationship="Self.FK__Events__TutorId__628FA481" FromRole="Tutors" ToRole="Events" />
+  </EntityType>
+  <Association Name="FK__Events__TutorId__628FA481">
+    <End Role="Tutors" Type="Self.Tutor" Multiplicity="1" />
+    <End Role="Events" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tutors">
+        <PropertyRef Name="TutorId" />
+      </Principal>
+      <Dependent Role="Events">
+        <PropertyRef Name="TutorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AcademicCalendarEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Events" EntityType="Self.Event" />
+    <EntitySet Name="Tutors" EntityType="Self.Tutor" />
+    <AssociationSet Name="FK__Events__TutorId__628FA481" Association="Self.FK__Events__TutorId__628FA481">
+      <End Role="Tutors" EntitySet="Tutors" />
+      <End Role="Events" EntitySet="Events" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,65 @@
+﻿@model Calender.Models.Event
+
+@{
+    var saZone = TimeZoneInfo.FindSystemTimeZoneById("South Africa Standard Time");
+
+    // Safe conversion for CreatedAt and UpdatedAt
+    DateTimeOffset? localCreated = Model.CreatedAt.HasValue
+        ? TimeZoneInfo.ConvertTime(Model.CreatedAt.Value, saZone)
+        : null;
+    DateTimeOffset? localUpdated = Model.UpdatedAt.HasValue
+        ? TimeZoneInfo.ConvertTime(Model.UpdatedAt.Value, saZone)
+        : null;
+    DateTimeOffset? localStart = Model.StartTime.HasValue
+        ? TimeZoneInfo.ConvertTime(Model.StartTime.Value, saZone)
+        : null;
+    DateTimeOffset? localEnd = Model.EndTime.HasValue
+        ? TimeZoneInfo.ConvertTime(Model.EndTime.Value, saZone)
+        : null;
+}
+
+<dl class="dl-horizontal">
+    <!-- other fields omitted for brevity -->
+
+    <dt>@Html.DisplayNameFor(m => m.CreatedAt)</dt>
+    <dd>
+        @(localCreated?.ToString("yyyy-MM-dd HH:mm") ?? "Not set") (SAST)
+    </dd>
+
+    <dt>@Html.DisplayNameFor(m => m.UpdatedAt)</dt>
+    <dd>
+        @(localUpdated?.ToString("yyyy-MM-dd HH:mm") ?? "Not set") (SAST)
+    </dd>
+</dl>
+
+
+<h2>Details</h2>
+
+<div>
+    <h4>Event</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(m => m.Title)</dt>
+        <dd>@Html.DisplayFor(m => m.Title)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.Description)</dt>
+        <dd>@Html.DisplayFor(m => m.Description)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.StartTime)</dt>
+        <dd>@(localStart?.ToString("yyyy-MM-dd HH:mm") ?? "Not set") (SAST)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.EndTime)</dt>
+        <dd>@(localEnd?.ToString("yyyy-MM-dd HH:mm") ?? "Not set") (SAST)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.UpdatedAt)</dt>
+        <dd>@(localUpdated?.ToString("yyyy-MM-dd HH:mm") ?? "Not set") (SAST)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.Tutor.DisplayName)</dt>
+        <dd>@Html.DisplayFor(m => m.Tutor.DisplayName)</dd>
+    </dl>
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EventId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
