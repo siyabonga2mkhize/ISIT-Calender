@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AcademicCalendarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Events">
+    <Key>
+      <PropertyRef Name="EventId" />
+    </Key>
+    <Property Name="EventId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TutorId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="StartTime" Type="datetimeoffset" Precision="7" Nullable="false" />
+    <Property Name="EndTime" Type="datetimeoffset" Precision="7" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetimeoffset" Precision="7" />
+    <Property Name="UpdatedAt" Type="datetimeoffset" Precision="7" />
+  </EntityType>
+  <EntityType Name="Tutors">
+    <Key>
+      <PropertyRef Name="TutorId" />
+    </Key>
+    <Property Name="TutorId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DisplayName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Events__TutorId__628FA481">
+    <End Role="Tutors" Type="Self.Tutors" Multiplicity="1" />
+    <End Role="Events" Type="Self.Events" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tutors">
+        <PropertyRef Name="TutorId" />
+      </Principal>
+      <Dependent Role="Events">
+        <PropertyRef Name="TutorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AcademicCalendarModelStoreContainer">
+    <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tutors" EntityType="Self.Tutors" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Events__TutorId__628FA481" Association="Self.FK__Events__TutorId__628FA481">
+      <End Role="Tutors" EntitySet="Tutors" />
+      <End Role="Events" EntitySet="Events" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
