@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Calender.Models
 {
-    public partial class AcademicCalendarEntities1
+    public partial class AcademicCalendarEntities3 : DbContext // <-- Add base class
     {
         public override int SaveChanges()
         {

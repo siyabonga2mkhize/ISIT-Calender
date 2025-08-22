@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="AcademicCalendarModelStoreContainer" CdmEntityContainer="AcademicCalendarEntities1">
+  <EntityContainerMapping StorageEntityContainer="AcademicCalendarModelStoreContainer" CdmEntityContainer="AcademicCalendarEntities3">
     <EntitySetMapping Name="Events">
       <EntityTypeMapping TypeName="AcademicCalendarModel.Event">
         <MappingFragment StoreEntitySet="Events">
@@ -12,6 +12,7 @@
           <ScalarProperty Name="EndTime" ColumnName="EndTime" />
           <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
           <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+          <ScalarProperty Name="DateOfClass" ColumnName="DateOfClass" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

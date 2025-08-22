@@ -17,11 +17,13 @@ namespace Calender.Models
         public int EventId { get; set; }
         public System.Guid TutorId { get; set; }
         public string Title { get; set; }
+        public Nullable<System.DateTime> DateOfClass { get; set; }
         public string Description { get; set; }
         public System.DateTimeOffset StartTime { get; set; }
         public System.DateTimeOffset EndTime { get; set; }
         public Nullable<System.DateTimeOffset> CreatedAt { get; set; }
         public Nullable<System.DateTimeOffset> UpdatedAt { get; set; }
+        
     
         public virtual Tutor Tutor { get; set; }
     }

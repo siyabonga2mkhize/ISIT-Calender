@@ -1,0 +1,157 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css"
+      rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<div id="calendar"></div>
+
+<!-- Modal for create/edit -->
+<div class="modal fade" id="createEventModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form id="createEventForm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create / Edit Event</h5>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close">
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <!-- Hidden keys -->
+                    <input type="hidden" id="eventId" name="id" />
+                    <input type="hidden" id="eventDate" name="dateOfClass" />
+
+                    <!-- Title -->
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text"
+                               class="form-control"
+                               id="title"
+                               name="title"
+                               required />
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control"
+                                  id="description"
+                                  name="description"></textarea>
+                    </div>
+
+                    <!-- Start Time -->
+                    <div class="form-group">
+                        <label for="startTime">Start Time</label>
+                        <input type="datetime-local"
+                               class="form-control"
+                               id="startTime"
+                               name="startTime"
+                               required />
+                    </div>
+
+                    <!-- End Time -->
+                    <div class="form-group">
+                        <label for="endTime">End Time</label>
+                        <input type="datetime-local"
+                               class="form-control"
+                               id="endTime"
+                               name="endTime"
+                               required />
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                        Save Event
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // 1. Initialize FullCalendar
+        var calendarEl = document.getElementById("calendar");
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: "dayGridMonth",
+            events: "/Calendar/GetEvents",
+
+            // When a date cell is clicked (to create)
+            dateClick: function (info) {
+                $("#eventId").val("");
+                $("#eventDate").val(info.dateStr);
+
+                // default 1-hour range
+                $("#startTime").val(info.dateStr + "T09:00");
+                $("#endTime").val(info.dateStr + "T10:00");
+
+                $("#title, #description").val("");
+                $("#createEventModal").modal("show");
+            },
+
+            // When an existing event is clicked (to edit)
+            eventClick: function (info) {
+                var e = info.event;
+                $("#eventId").val(e.id);
+                $("#eventDate").val(e.startStr);
+
+                $("#startTime").val(e.start.toISOString().slice(0, 16));
+                $("#endTime").val(
+                    (e.end || e.start).toISOString().slice(0, 16)
+                );
+
+                $("#title").val(e.title);
+                $("#description").val(e.extendedProps.description || "");
+                $("#createEventModal").modal("show");
+            }
+        });
+
+        // 2. Render it
+        calendar.render();
+
+        // 3. Handle Create/Edit form submission
+        $("#createEventForm").on("submit", function (e) {
+            e.preventDefault();
+
+            var id = $("#eventId").val();
+            var url = id ? "/Calendar/EditEvent" : "/Calendar/CreateEvent";
+            var data = $(this).serialize();
+
+            $.post(url, data, function (res) {
+                if (!res.success) {
+                    return alert(res.error || "Error saving event");
+                }
+
+                if (id) {
+                    // update in-place
+                    var ev = calendar.getEventById(id);
+                    ev.setProp("title", res.event.title);
+                    ev.setStart(res.event.start);
+                    ev.setEnd(res.event.end);
+                    ev.setExtendedProp("description", res.event.description);
+                } else {
+                    // add new
+                    calendar.addEvent(res.event);
+                }
+
+                $("#createEventModal").modal("hide");
+                $("#createEventForm")[0].reset();
+            });
+        });
+
+        // 4. (Optional) Fallback close handler if data-dismiss isn’t working
+        $(document).on("click", ".modal .close, .modal .btn-close", function () {
+            $("#createEventModal").modal("hide");
+        });
+    });
+</script>

@@ -12,6 +12,7 @@
     <Property Name="EndTime" Type="DateTimeOffset" Nullable="false" Precision="7" />
     <Property Name="CreatedAt" Type="DateTimeOffset" Precision="7" />
     <Property Name="UpdatedAt" Type="DateTimeOffset" Precision="7" />
+    <Property Name="DateOfClass" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Tutor" Relationship="Self.FK__Events__TutorId__628FA481" FromRole="Events" ToRole="Tutors" />
   </EntityType>
   <EntityType Name="Tutor">
@@ -35,7 +36,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="AcademicCalendarEntities1" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="AcademicCalendarEntities3" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Events" EntityType="Self.Event" />
     <EntitySet Name="Tutors" EntityType="Self.Tutor" />
     <AssociationSet Name="FK__Events__TutorId__628FA481" Association="Self.FK__Events__TutorId__628FA481">

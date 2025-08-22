@@ -13,10 +13,10 @@ namespace Calender.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class AcademicCalendarEntities1 : DbContext
+    public partial class AcademicCalendarEntities3 : DbContext
     {
-        public AcademicCalendarEntities1()
-            : base("name=AcademicCalendarEntities1")
+        public AcademicCalendarEntities3()
+            : base("name=AcademicCalendarEntities3")
         {
         }
     
@@ -27,5 +27,6 @@ namespace Calender.Models
     
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Tutor> Tutors { get; set; }
+        
     }
 }

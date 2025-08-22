@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="AcademicCalendarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="AcademicCalendarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Events">
           <Key>
             <PropertyRef Name="EventId" />
@@ -47,7 +47,8 @@
             <End Role="Events" EntitySet="Events" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AcademicCalendarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -63,8 +64,8 @@
           <Property Name="EndTime" Type="DateTimeOffset" Nullable="false" Precision="7" />
           <Property Name="CreatedAt" Type="DateTimeOffset" Precision="7" />
           <Property Name="UpdatedAt" Type="DateTimeOffset" Precision="7" />
-          <NavigationProperty Name="Tutor" Relationship="Self.FK__Events__TutorId__628FA481" FromRole="Events" ToRole="Tutors" />
           <Property Name="DateOfClass" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Tutor" Relationship="Self.FK__Events__TutorId__628FA481" FromRole="Events" ToRole="Tutors" />
         </EntityType>
         <EntityType Name="Tutor">
           <Key>
@@ -87,7 +88,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="AcademicCalendarEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="AcademicCalendarEntities3" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Events" EntityType="Self.Event" />
           <EntitySet Name="Tutors" EntityType="Self.Tutor" />
           <AssociationSet Name="FK__Events__TutorId__628FA481" Association="Self.FK__Events__TutorId__628FA481">
@@ -100,11 +101,10 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="AcademicCalendarModelStoreContainer" CdmEntityContainer="AcademicCalendarEntities1">
+        <EntityContainerMapping StorageEntityContainer="AcademicCalendarModelStoreContainer" CdmEntityContainer="AcademicCalendarEntities3">
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="AcademicCalendarModel.Event">
               <MappingFragment StoreEntitySet="Events">
-                <ScalarProperty Name="DateOfClass" ColumnName="DateOfClass" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
                 <ScalarProperty Name="TutorId" ColumnName="TutorId" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -113,6 +113,7 @@
                 <ScalarProperty Name="EndTime" ColumnName="EndTime" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="DateOfClass" ColumnName="DateOfClass" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
