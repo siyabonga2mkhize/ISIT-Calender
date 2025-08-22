@@ -1,23 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using Calender.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Calender.Models;
 
 namespace Calender.Controllers
 {
     public class EventsController : Controller
     {
-        private AcademicCalendarEntities1 db = new AcademicCalendarEntities1();
+        private AcademicCalendarEntities3 db = new AcademicCalendarEntities3();
+        // The error CS1061 indicates that 'db.Tutors' does not exist on 'AcademicCalendarEntities1'.
+        // To fix this, you need to ensure that the 'Tutors' DbSet is defined in your AcademicCalendarEntities1 context class.
+        // If you have a Tutor entity and a corresponding table in your database, add the following property to your context class:
+
+        // In AcademicCalendarEntities1.cs (your DbContext class file), add:
+        public virtual DbSet<Tutor> Tutors { get; set; }
 
         // GET: Events
         public ActionResult Index()
         {
-           
+
+
             // With this corrected line:
             var events = db.Events.Include("Tutor");
             return View(events.ToList());
@@ -54,6 +57,7 @@ namespace Calender.Controllers
         {
             if (ModelState.IsValid)
             {
+                @event.DateOfClass = @event.StartTime.Date; // or set as needed
                 db.Events.Add(@event);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -12,6 +12,7 @@
     <Property Name="EndTime" Type="datetimeoffset" Precision="7" Nullable="false" />
     <Property Name="CreatedAt" Type="datetimeoffset" Precision="7" />
     <Property Name="UpdatedAt" Type="datetimeoffset" Precision="7" />
+    <Property Name="DateOfClass" Type="datetime" />
   </EntityType>
   <EntityType Name="Tutors">
     <Key>

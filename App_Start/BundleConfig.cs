@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace Calender
 {
@@ -25,6 +24,16 @@ namespace Calender
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/calendar").Include(
+  "~/Content/fullcalendar.min.css",
+  "~/Content/site.css"
+));
+            bundles.Add(new ScriptBundle("~/bundles/calendar").Include(
+              "~/Scripts/moment.min.js",       // if needed
+              "~/Scripts/fullcalendar.min.js",
+              "~/Scripts/calendar.js"
+            ));
+
         }
     }
 }
