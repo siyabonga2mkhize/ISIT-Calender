@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Calender.Controllers
 {
-    public class CalendarController : Controller
+    public class CalenderController : Controller
     {
         private AcademicCalendarEntities3 db = new AcademicCalendarEntities3();
 

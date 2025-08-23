@@ -325,7 +325,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\CalendarController.cs" />
+    <Compile Include="Controllers\CalenderController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -432,11 +432,11 @@
     <Content Include="Views\Events\Details.cshtml" />
     <Content Include="Views\Events\Edit.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
-    <Content Include="Views\Calendar\Create.cshtml" />
-    <Content Include="Views\Calendar\Delete.cshtml" />
-    <Content Include="Views\Calendar\Details.cshtml" />
-    <Content Include="Views\Calendar\Edit.cshtml" />
-    <Content Include="Views\Calendar\Index.cshtml" />
+    <Content Include="Views\Calender\Create.cshtml" />
+    <Content Include="Views\Calender\Delete.cshtml" />
+    <Content Include="Views\Calender\Details.cshtml" />
+    <Content Include="Views\Calender\Edit.cshtml" />
+    <Content Include="Views\Calender\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
